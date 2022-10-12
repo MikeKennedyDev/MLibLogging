@@ -16,6 +16,8 @@ test_logger = None
 def log_test():
     if test_logger is None:
         raise NameError('test_logger was never initialized')
+
+    print(f"logging to '{test_logger.GetLogFile()}'")
     test_logger.debug("Debug test entry")
     test_logger.info("Info test entry")
     test_logger.warning("Warning test entry")

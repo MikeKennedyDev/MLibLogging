@@ -4,15 +4,18 @@ from datetime import date
 
 from dotenv import load_dotenv
 
-full_file_path = ''
+full_file_path = None
 
 
-def __setup_logfile__(app_name):
+def __setup_logfile__(project_name, log_location_override):
     global full_file_path
 
     today = date.today()
     filename = f'Log_{today.strftime("%d%m%Y")}.log'
-    file_base = f'{os.getenv("LOG_LOCATION_BASE")}\\{app_name}'
+    if log_location_override is not None:
+        file_base = f'{log_location_override}\\{project_name}'
+    else:
+        file_base = f'{os.getenv("LOG_LOCATION_BASE")}\\{project_name}'
     full_file_path = f'{file_base}\\{filename}'
 
     # ensure the instance folder exists
@@ -28,23 +31,22 @@ def __setup_logfile__(app_name):
 
 class MLogger:
 
-    def __init__(self, application):
+    # region Constructors
+
+    def __init__(self, project_name, log_location_override=None):
         load_dotenv()
-        __setup_logfile__(app_name=application)
+        __setup_logfile__(project_name=project_name, log_location_override=log_location_override)
 
         logging.basicConfig(filename=full_file_path,
                             format='%(asctime)s %(levelname)s: %(message)s',
                             level=logging.INFO,
                             filemode='a')
 
-        # logging.info('Heres some info from init')
-        # print(logging.getLogger())
-        # print(logging.Logger)
+    # endregion Constructors
+
+    # region Methods
 
     def debug(self, message):
-        # print('-- in debug --')
-        # print(logging.getLogger())
-        # print(logging.Logger)
         logging.debug(message)
 
     def info(self, message):
@@ -58,3 +60,8 @@ class MLogger:
 
     def critical(self, message):
         logging.critical(message)
+
+    def GetLogFile(self):
+        return full_file_path
+
+    # endregion
