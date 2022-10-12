@@ -8,11 +8,11 @@ full_file_path = ''
 
 
 def __setup_logfile__(app_name):
+    global full_file_path
+
     today = date.today()
     filename = f'Log_{today.strftime("%d%m%Y")}.log'
     file_base = f'{os.getenv("LOG_LOCATION_BASE")}\\{app_name}'
-
-    global full_file_path
     full_file_path = f'{file_base}\\{filename}'
 
     # ensure the instance folder exists
@@ -37,7 +37,14 @@ class MLogger:
                             level=logging.INFO,
                             filemode='a')
 
+        # logging.info('Heres some info from init')
+        # print(logging.getLogger())
+        # print(logging.Logger)
+
     def debug(self, message):
+        # print('-- in debug --')
+        # print(logging.getLogger())
+        # print(logging.Logger)
         logging.debug(message)
 
     def info(self, message):
