@@ -18,11 +18,11 @@ def log_test():
         raise NameError('test_logger was never initialized')
 
     print(f"logging to '{test_logger.GetLogFile()}'")
-    test_logger.debug("Debug test entry")
-    test_logger.info("Info test entry")
-    test_logger.warning("Warning test entry")
-    test_logger.error("Error test entry")
-    test_logger.critical("Critical test entry")
+    test_logger.Debug("Debug test entry")
+    test_logger.Info("Info test entry")
+    test_logger.Warning("Warning test entry")
+    test_logger.Error("Error test entry")
+    test_logger.Critical("Critical test entry")
 
     # TODO: Validate these entries exist in log file
 
@@ -34,6 +34,7 @@ def logger_setup_test():
     print(f'Creating logger for {appName}')
     test_logger = MLogger(appName)
     print('Logger created')
+
 
     # TODO: Find better validation criteria
     assert test_logger is not None
